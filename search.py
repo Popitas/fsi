@@ -125,11 +125,19 @@ def graph_search(problem, fringe):
     while fringe:
         node = fringe.pop()
         if problem.goal_test(node.state):
+            print("Fringe size = %d" % len(fringe))
+            print_route(node)
             return node
         if node.state not in closed:
             closed[node.state] = True
             fringe.extend(node.expand(problem))
     return None
+
+
+def print_route(node):
+    while node.parent:
+        node = node.parent
+        print node
 
 
 def breadth_first_graph_search(problem):
@@ -173,6 +181,7 @@ def iterative_deepening_search(problem):
         result = depth_limited_search(problem, depth)
         if result is not 'cutoff':
             return result
+
 
 # _____________________________________________________________________________
 # The remainder of this file implements examples for the search algorithms.
@@ -295,7 +304,7 @@ australia.locations = Dict(WA=(120, 24), NT=(135, 20), SA=(135, 30),
                            Q=(145, 20), NSW=(145, 32), T=(145, 42), V=(145, 37))
 
 
-class GraphProblem(Problem):
+class GPSRoutes(Problem):
     """The problem of searching in a graph from one node to another."""
 
     def __init__(self, initial, goal, graph):
