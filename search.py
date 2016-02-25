@@ -126,6 +126,7 @@ def graph_search(problem, fringe):
         node = fringe.pop()
         if problem.goal_test(node.state):
             print("Fringe size = %d" % len(fringe))
+            print node
             print_route(node)
             return node
         if node.state not in closed:
